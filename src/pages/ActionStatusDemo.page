@@ -1,0 +1,31 @@
+<apex:page showHeader="true" sidebar="false" controller="ActionStatusDemoController" title="処理ステータスデーモン画面" tabStyle="ActionStatusDemo__tab">
+	<apex:outputPanel id="detail">
+		<apex:form id="mainform">
+			<apex:PanelGrid id="PanelGrid01" columns="1" border="0" style="text-align:left" width="100%">
+				<apex:sectionHeader title="処理中ステータスデーモン画面" />
+			</apex:PanelGrid>
+			<apex:actionFunction name="demoMethod" action="{!demoMethod}" rendered="true" rerender="detail" status="detailStatus" />
+			<script>
+				window.setTimeout(demoMethod,200)
+			</script>
+			<apex:PanelGrid id="detail" columns="1" width="100%"  cellpadding="5" cellspacing="0">
+				<apex:pageMessages showDetail="false" rendered="true"></apex:pageMessages>
+				<apex:PanelGrid id="detail1" columns="1"   style="text-align:center" width="100%"  cellpadding="5" cellspacing="0">
+					<apex:PanelGrid id="image" columns="1" border="0" style="text-align:center" width="100%">
+						<apex:image value="/img/waiting_dots.gif" width="156" height="25" rendered="{!waitingFlg}"></apex:image>
+					</apex:PanelGrid>
+					<apex:actionStatus id="detailStatus" layout="block">
+						<apex:facet name="start">
+							<div class="background"></div>
+						</apex:facet>
+						<apex:facet name="stop">
+							<apex:panelGroup layout="block">
+								<apex:commandButton id="config" style="btn" value="確認" rendered="{!configFlg}" action="{!toDoNext}" />
+							</apex:panelGroup>
+						</apex:facet>
+					</apex:actionStatus>
+				</apex:PanelGrid>
+			</apex:PanelGrid>
+		</apex:form>
+	</apex:outputPanel>
+</apex:page>
